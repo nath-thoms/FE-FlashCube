@@ -1,0 +1,119 @@
+@font-face {
+  font-family: 'ForcedSquare';
+  src: url('./FORCEDSQUARE.ttf') format('truetype');
+}
+body {
+  font-family: 'ForcedSquare';
+}
+
+.App {
+  text-align: center;
+  background-size: cover;
+  background-color: blue;  
+}
+
+.home {
+  background-size: cover;
+  background-color: blue;  
+  display:inline-block;
+  text-align:center;
+  height:100%;
+  object-fit: cover;
+}
+
+img { 
+  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navbar {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  font-family: 'ForcedSquare' Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.navbar:hover {
+  color:yellow;
+  background-color: lightblue;    
+}
+
+.navbar:active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#navbar {
+  overflow: hidden;
+  background-color: blue;
+}
+
+.login {
+  background-color: blue;  
+  color: white;
+  padding: 14px;  
+}
+
+#flashcubeHomeLogoContainer {
+  transform: rotate(45deg);
+  transition: transform 2s;
+}
+
+#flashcubeHomeLogo {
+  margin: 50px;
+  transform: rotate(-45deg);
+  
+}
+
+#flashcubeHomeLogoContainer:hover {
+  transform:  rotateY(180deg) rotate(45deg); 
+}
+
+.topicListItem {
+  background-color: blue;  
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+.topicListItem {
+  background-color: blue;  
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+.topicListItem:hover {
+  color:yellow;
+  background-color: lightblue;    
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+.learnOrTestButton {
+  background-color: blue;  
+  color: #f2f2f2;
+  display:inline-block;
+  border:1px solid #CCC;
+  box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+  cursor:pointer;
+  vertical-align:middle;
+  max-width: 100px;
+  padding: 14px;
+  text-align: center;
+  text-decoration: none;  
+}
+
+.learnOrTestButton:hover {
+  color:yellow;
+  background-color: lightblue;    
+  box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+  text-decoration: none;  
+}
