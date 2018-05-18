@@ -66,26 +66,27 @@ class Login extends Component {
                 <img className="logo-image" src={logo} />
 
 
-                <div className="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s6">
+                <div className="login-field">
+                    <form class="login-field">
+                        <div class="login-field">
+                            <div class="input-field">
                                 <i class="material-icons prefix">email</i>
                                 <input value={this.state.email} onChange={this.handleChange} id="icon_prefix" type="email" name="email" class="validate" />
                                 <label for="icon_prefix">Email</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s6">
+                        <div class="login-field">
+                            <div class="input-field">
                                 <i class="material-icons prefix">vpn_key</i>
                                 <input value={this.state.password} onChange={this.handleChange} id="icon_prefix" type="password" name="password" class="validate" />
                                 <label for="icon_prefix">Password</label>
                             </div>
                         </div>
-
-                        <button onClick={this.login} class="btn waves-effect waves-light" type="submit" name="action">Login
+                        <div className="login-but">
+                            <button onClick={this.login} class="btn waves-effect waves-light" type="submit" name="action">Login
                                 <i class="material-icons right">send</i>
-                        </button>
+                            </button>
+                        </div>
 
                         <button onClick={this.signup} class="btn waves-effect waves-light" type="submit" name="action">Signup
                                 <i class="material-icons right">send</i>

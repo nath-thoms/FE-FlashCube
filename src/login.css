@@ -73,3 +73,19 @@ body { padding: 2em; }
   height: auto
 
 }
+
+.login-field {
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  width: 75%
+}
+
+.login-but {
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+
+}
