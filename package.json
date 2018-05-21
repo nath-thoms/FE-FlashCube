@@ -5,6 +5,7 @@
   "dependencies": {
     "aframe": "^0.8.2",
     "aframe-react": "^4.4.0",
+    "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
     "firebase": "^5.0.2",
     "jquery": "^3.3.1",

@@ -27,7 +27,7 @@ class App extends Component {
         //localStorage.setItem('user', user.uid);
       } else {
         this.setState({ user: null });
-        //ocalStorage.removeItem('user')
+        //localStorage.removeItem('user')
       }
     })
   }
