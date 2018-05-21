@@ -5,23 +5,27 @@ import Loading from './loading'
 import Title from './title';
 import MainButton from './main-button'
 import { Link } from 'react-router-dom';
-
+import * as API from './API';
 
 class Home extends Component {
 
+    state = {
+        user: null
+    }
+
+    componentDidMount () {
+        API.getUserById(this.props.user.uid)
+            .then(res => this.setState({user: res}))
+    }
 
     logout = () => {
         fire.auth().signOut();
         this.props.history.push('/')
     }
 
-
-
-
     render() {
         console.log(this.props.user)
         return (
-
             
             <div className="container">
             {!this.props.user
@@ -35,6 +39,7 @@ class Home extends Component {
                     <p>Welcome {this.props.user.displayName || "User"}</p>
                     <MainButton />
                     <MainButton />
+                    <p>{this.props.user.uid}</p>
                 </div>
                 <div className="profile-pic">
                     <img src={this.props.user.photoURL} />
