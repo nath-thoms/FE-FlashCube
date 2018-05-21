@@ -1,5 +1,11 @@
+@font-face {
+  font-family: 'forcedSquare';
+  src: url('forcedSquare.ttf');
+}
+
 .App {
   text-align: center;
+  font-family: 'forcedSquare';
 }
 
 .App-logo {
