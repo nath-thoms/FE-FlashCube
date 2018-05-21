@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import logo from './images/image.png';
 import './App.css';
-import { BrowserRouter, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Link, withRouter } from 'react-router-dom'
 import Login from './components/login';
 import { fire } from './config/Fire'
 import Home from './components/home'
+import Cube from './components/cube'
 
 class App extends Component {
 
@@ -42,12 +43,11 @@ class App extends Component {
 
 
 
-            <p className="App-intro">
-              {this.state.user ? (<Link to="/home"><Home user={this.state.user} /></Link>) : (<Login />)}
-              {/* <Login /> */}
-
-
-            </p>
+            <div className="App-intro">
+            <Route exact path="/" component={Login}/>
+            <Route exact path="/home" component={(props) => <Home {...props} user={this.state.user}/>}/>
+            <Route exact path="/cube" component={(props) => <Cube {...props} user={this.state.user}/>}/>
+            </div>
           </div>
         </BrowserRouter>
 
