@@ -51,7 +51,8 @@ class Login extends Component {
                 if (error) {
                     console.log(error)
                 } else {
-                    
+
+                    this.props.history.push('/home')
                     this.setState({
                         user: true
                     })
