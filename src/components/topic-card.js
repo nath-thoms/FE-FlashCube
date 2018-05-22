@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import '../home.css'
 
-function TopicCard({ topic }) {
-
-    return (
-
-        <li class="collection-item avatar">
-            <img src={topic.imageUrl} alt="" class="circle" />
-
-            <p>{topic.title}<br />
-                Number of terms: {topic.terms.length}
-            </p>
-            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+class TopicCard extends Component {
 
 
-        </li>
 
-    )
+    render() {
+        return (
+
+            <button value={this.props.index} onClick={this.props.handleClick} class="collection-item avatar topic-button">
+
+                <img src={this.props.topic.imageUrl} alt="" class="circle" />
+
+                <p id={`${this.props.index}`}>{this.props.topic.title}<br />
+                    Number of terms: {this.props.topic.terms.length}
+                </p>
+                <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+
+
+            </button>
+
+        )
+    }
 }
 
 

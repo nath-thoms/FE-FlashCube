@@ -21,6 +21,8 @@ class Home extends Component {
         this.props.history.push('/')
     }
 
+
+
     render() {
         console.log(this.props.user)
         return (
@@ -50,6 +52,7 @@ class Home extends Component {
 
                         <img className="logo-image" src={logoText} />
                         {console.log(this.props.topics)}
+                        {console.log(this.state)}
                         <div className="profile-pic">
                             <img src={this.props.user.photoURL} />
                         </div>
@@ -80,7 +83,7 @@ class Home extends Component {
 
                                 <ul class="collection">
 
-                                    {this.props.topics.map((topic) => <TopicCard topic={topic} />)}
+                                    {this.props.topics.map((topic, index) => <TopicCard handleClick={this.props.handleClick} topic={topic} index={index} />)}
 
 
                                 </ul>
@@ -88,8 +91,6 @@ class Home extends Component {
                             </div>
 
                         </div>
-
-
 
 
 

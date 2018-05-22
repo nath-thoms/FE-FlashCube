@@ -8,6 +8,7 @@ import Home from './components/home'
 import Cube from './components/cube'
 import * as API from './components/API';
 
+
 class App extends Component {
 
   state = {
@@ -18,13 +19,16 @@ class App extends Component {
 
     topics: [],
 
-    chosenTopic: 0
+    chosenTopic: 0,
+
+    currentTopic: null
 
   }
 
   componentDidMount() {
     this.authListener()
     // this.logout()
+
   }
 
   authListener() {
@@ -85,6 +89,20 @@ class App extends Component {
     this.setState({ dbUser })
   }
 
+  handleClick = (e) => {
+    e.preventDefault()
+    // this.setState({
+    //     currentTopic: event.target
+    // })
+    console.log(e.target.id)
+    console.log(this.state.topics)
+    this.setState({
+      currentTopic: e.target.id
+    })
+    console.log(this.state)
+
+  }
+
   render() {
     return (
       <div className="App">
@@ -98,7 +116,7 @@ class App extends Component {
 
             <div className="App-intro">
               <Route exact path="/" component={Login} />
-              <Route exact path="/home" component={(props) => <Home {...props} updateDbUser={this.updateDbUser} user={this.state.user} dbUser={this.state.dbUser} topics={this.state.topics} />} />
+              <Route exact path="/home" component={(props) => <Home {...props} updateDbUser={this.updateDbUser} user={this.state.user} dbUser={this.state.dbUser} topics={this.state.topics} handleClick={this.handleClick} />} />
               <Route exact path="/cube" component={(props) => <Cube {...props} user={this.state.user} dbUser={this.state.dbUser} topic={this.state.topics[this.state.chosenTopic]} />} />
             </div>
           </div>

@@ -29,3 +29,7 @@ img {
     flex-direction: row-reverse;
     margin-top: 20px
 }
+
+.topic-button {
+    width: 100%
+}
