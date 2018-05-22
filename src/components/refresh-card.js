@@ -2,7 +2,7 @@ import React from 'react';
 import PT from 'prop-types';
 import {Entity} from 'aframe-react';
 
-function FlashCard ({pos, img, term, definition}) {
+function FlashCard ({pos, img, exitCube}) {
 
 
     function mouseEnter (e) {
@@ -19,8 +19,7 @@ function FlashCard ({pos, img, term, definition}) {
 
     function mouseClick (e) {
         console.log('mouse click', e.detail.intersection)
-        cardFlipped ? e.target.emit('flipBack') : e.target.emit('flipOver')
-        cardFlipped = !cardFlipped
+        e.target.emit('spin')
     }
 
     return (
@@ -38,27 +37,21 @@ function FlashCard ({pos, img, term, definition}) {
                 dur="200"
                 to={`${pos.x} ${pos.y} ${pos.z}`}></a-animation>
             <a-animation attribute="rotation"
-                begin='flipOver'
-                dur="500"
+                begin='spin'
+                dur="1000"
                 from="0 0 0"
-                to="0 180 0"></a-animation>
-            <a-animation attribute="rotation"
-                begin='flipBack'
-                dur="500"
-                from="0 180 0"
-                to="0 360 0"></a-animation>
+                to="0 0 360"></a-animation>
             <Entity
                 geometry={{primitive: 'plane', width: 1.4, height: 1.4}}
-                material={{src: img ? img : '#paper'}}
+                material={{src: '#cardboard'}}
                 position={{x: 0, y: 0, z: -0.01}}
-                text={{value: term, align: 'center', color: 'black', wrapCount: '15', font: 'https://cdn.aframe.io/fonts/mozillavr.fnt'}}>
+                text={{value: 'REFRESH', align: 'center', color: 'black', wrapCount: '8', font: 'https://cdn.aframe.io/fonts/mozillavr.fnt'}}>
             </Entity>
             <Entity
                 geometry={{primitive: 'plane', width: 1.4, height: 1.4}}
                 material={{src: '#cardboard'}}
                 position={{x: 0, y: 0, z: -0.01}}
-                rotation="0 180 0"
-                text={{value: definition, align: 'center', color: 'black', wrapCount: '15', font: 'https://cdn.aframe.io/fonts/mozillavr.fnt'}}>
+                rotation="0 180 0">
             </Entity>
         </Entity>
     );
