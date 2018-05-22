@@ -17,6 +17,8 @@ class Login extends Component {
 
     }
 
+
+
     login = (e) => {
         e.preventDefault();
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -51,9 +53,12 @@ class Login extends Component {
                 if (error) {
                     console.log(error)
                 } else {
-                    
+
                     this.setState({
                         user: true
+                    }, () => {
+                        this.props.history.push('/home')
+
                     })
                 }
             })

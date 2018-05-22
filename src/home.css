@@ -2,3 +2,34 @@ img {
 
     width: 75px
 }
+
+.button-bar {
+
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px
+}
+
+.menu-button {
+
+    background-color: hotpink;
+    border: 20px;
+    border-color: black
+}
+
+.scroll-box {
+    border: 1px solid black;
+    height:400px;
+    overflow:scroll;
+    text-align: center;
+}
+
+.filters {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 20px
+}
+
+.topic-button {
+    width: 100%
+}
