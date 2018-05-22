@@ -62,7 +62,28 @@ class Home extends Component {
                             <p>This is an example of an HTML scroll box.</p>
                             <p>Scroll boxes allow you to place lots of web content into a small box. You can force the box to have scroll bars so that the user can scroll down (or across) to view all of the content.</p>
 
+
+                            <div className="topic-list">
+
+                                <ul class="collection">
+
+                                    <li class="collection-item avatar">
+                                        <img src="images/yuna.jpg" alt="" class="circle" />
+                                        <span class="title">Title</span>
+                                        <p>First Line <br />
+                                            Second Line
+                                    </p>
+                                        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
                         </div>
+
                     </div>}
 
 
