@@ -24,6 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     this.authListener()
+    // this.logout()
   }
 
   authListener() {
@@ -33,29 +34,36 @@ class App extends Component {
         this.setState({ user }, () => {
           API.getUserById(user.uid)
             .then(res => {
-              this.setState({dbUser: res[0]._fields[0].properties}, () => {
+              this.setState({ dbUser: res[0]._fields[0].properties }, () => {
                 this.downloadTopicsOnLoad(res)
               })
             })
-          });
-          //localStorage.setItem('user', user.uid);
-        } else {
-          this.setState({ user: null });
-          //localStorage.removeItem('user')
-        }
-      })
-    }
-    
+        });
+        //localStorage.setItem('user', user.uid);
+      } else {
+        this.setState({ user: null });
+        //localStorage.removeItem('user')
+      }
+    })
+  }
+
+  logout = () => {
+    fire.auth().signOut();
+  }
+
   downloadTopicsOnLoad = (res) => {
     const relatedTopics = res.map((ele) => {
-      return {relationship: ele._fields[1], title: ele._fields[2].properties.title, title: ele._fields[2].properties.title, terms: []}
+      console.log(ele)
+      const topicObject = { relationship: [ele._fields[1]], title: ele._fields[3].properties.title, title: ele._fields[3].properties.title, terms: [], imageUrl: ele._fields[3].properties.topicImageUrl }
+      if (ele._fields[2]) topicObject.relationship.push('favourite')
+      return topicObject
     })
     API.getAllTopics()
       .then(res => {
         res.forEach(nonRelTopic => {
           if (!relatedTopics.find(relTopic => {
             return relTopic.title === nonRelTopic._fields[0].properties.title
-          })) relatedTopics.push({relationship: null, title: nonRelTopic._fields[0].properties.title, terms: []})
+          })) relatedTopics.push({ relationship: [], title: nonRelTopic._fields[0].properties.title, terms: [], imageUrl: nonRelTopic._fields[0].properties.topicImageUrl })
         })
         API.getAllTerms()
           .then(res => {
@@ -68,13 +76,13 @@ class App extends Component {
                 definition: termObj._fields[0].properties.definition
               })
             })
-            this.setState({topics: relatedTopics})
+            this.setState({ topics: relatedTopics })
           })
       })
   }
 
   updateDbUser = (dbUser) => {
-    this.setState({dbUser})
+    this.setState({ dbUser })
   }
 
   render() {
@@ -89,9 +97,9 @@ class App extends Component {
 
 
             <div className="App-intro">
-            <Route exact path="/" component={Login}/>
-            <Route exact path="/home" component={(props) => <Home {...props} updateDbUser={this.updateDbUser} user={this.state.user} dbUser={this.state.dbUser} topics={this.state.topics}/>}/>
-            <Route exact path="/cube" component={(props) => <Cube {...props} user={this.state.user} dbUser={this.state.dbUser} topic={this.state.topics[this.state.chosenTopic]}/>}/>
+              <Route exact path="/" component={Login} />
+              <Route exact path="/home" component={(props) => <Home {...props} updateDbUser={this.updateDbUser} user={this.state.user} dbUser={this.state.dbUser} topics={this.state.topics} />} />
+              <Route exact path="/cube" component={(props) => <Cube {...props} user={this.state.user} dbUser={this.state.dbUser} topic={this.state.topics[this.state.chosenTopic]} />} />
             </div>
           </div>
         </BrowserRouter>
