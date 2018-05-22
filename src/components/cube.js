@@ -57,13 +57,13 @@ class Cube extends React.Component {
                     <Entity
                         geometry={{primitive: 'plane', width: 5.8, height: 0.5}}
                         material={{src: '#cardboard'}}
-                        position={{x: 0, y: 2.65, z: 0.02}}>
+                        position={{x: 0, y: 2.65, z: 2.02}}>
                         
                     </Entity>
                     <Entity
                         geometry={{primitive: 'plane', width: 5.8, height: 0.5}}
                         material={{src: '#cardboard'}}
-                        position={{x: 0, y: -2.65, z: 0.02}}>
+                        position={{x: 0, y: -2.65, z: 2.02}}>
                     </Entity>
                     <FlashCard img="#rawbeef" pos={{x: -1.5, y: 1.5, z: 2.02}}/>
                     <FlashCard img="#sean" pos={{x: 0, y: 1.5, z: 2.02}}/>

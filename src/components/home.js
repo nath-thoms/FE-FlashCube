@@ -9,13 +9,8 @@ import * as API from './API';
 
 class Home extends Component {
 
-    state = {
-        user: null
-    }
-
     componentDidMount () {
-        API.getUserById(this.props.user.uid)
-            .then(res => this.setState({user: res}))
+        
     }
 
     logout = () => {
@@ -40,6 +35,8 @@ class Home extends Component {
                     <MainButton />
                     <MainButton />
                     <p>{this.props.user.uid}</p>
+                    <p>{JSON.stringify(this.props.dbUser)}</p>
+                    <p>{JSON.stringify(this.props.topics)}</p>
                 </div>
                 <div className="profile-pic">
                     <img src={this.props.user.photoURL} />
