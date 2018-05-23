@@ -109,18 +109,17 @@ class App extends Component {
 
 
 
-        <BrowserRouter>
-          <div>
+
+        <div>
 
 
 
-            <div className="App-intro">
-              <Route exact path="/" component={Login} />
-              <Route exact path="/home" component={(props) => <Home {...props} updateDbUser={this.updateDbUser} user={this.state.user} dbUser={this.state.dbUser} topics={this.state.topics} handleClick={this.handleClick} />} />
-              <Route exact path="/cube" component={(props) => <Cube {...props} user={this.state.user} dbUser={this.state.dbUser} topic={this.state.topics[this.state.chosenTopic]} />} />
-            </div>
+          <div className="App-intro">
+            <Route exact path="/" component={Login} />
+            <Route exact path="/home" component={(props) => <Home {...props} updateDbUser={this.updateDbUser} user={this.state.user} dbUser={this.state.dbUser} topics={this.state.topics} handleClick={this.handleClick} currentTopic={this.state.currentTopic} />} />
+            <Route exact path="/cube" component={(props) => <Cube {...props} user={this.state.user} dbUser={this.state.dbUser} topic={this.state.topics[this.state.chosenTopic]} />} />
           </div>
-        </BrowserRouter>
+        </div>
 
 
       </div>

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const domain = 'https://flashcube-back-end.herokuapp.com'
 
-export function getUserById (userId) {
+export function getUserById(userId) {
 
     console.log(userId)
 
@@ -18,7 +18,7 @@ export function getUserById (userId) {
 
 }
 
-export function getAllTopics () {
+export function getAllTopics() {
 
     return axios
         .get(`${domain}/api/topics`, )
@@ -29,7 +29,7 @@ export function getAllTopics () {
 
 }
 
-export function getAllTerms () {
+export function getAllTerms() {
 
     return axios
         .get(`${domain}/api/terms`, )
@@ -38,4 +38,29 @@ export function getAllTerms () {
         })
         .catch(console.log);
 
+}
+
+export function createFavourite(userId, topicTitle) {
+
+    return axios
+        .put(`${domain}/api/topics/${userId}/${topicTitle}`)
+        .then(res => {
+            return axios
+                .put(`${domain}/api/topics/fave/${userId}/${topicTitle}`)
+
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(console.log)
+}
+
+export function removeFavourite(userId, topicTitle) {
+
+    return axios
+        .delete(`${domain}/api/topics/fave/${userId}/${topicTitle}`)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(console.log)
 }

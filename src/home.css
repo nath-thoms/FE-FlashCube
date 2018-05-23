@@ -18,7 +18,7 @@ img {
 }
 
 .scroll-box {
-    border: 1px solid black;
+    border: 2px solid black;
     height:400px;
     overflow:scroll;
     text-align: center;
@@ -32,4 +32,35 @@ img {
 
 .topic-button {
     width: 100%
+}
+
+#selected-topic{
+
+    background-color: hotpink;
+
+}
+
+.topic-card {
+
+    display:flex;
+    
+    border: 1px solid black
+}
+
+.fav-button {
+
+    display: flex
+}
+
+.fave-star {
+    outline: none
+}
+.fave-star:focus {
+    text-decoration: none;
+    outline: none
+}
+
+
+button:focus {
+    background-color: white !important;
 }

@@ -24,7 +24,6 @@ class Home extends Component {
 
 
     render() {
-        console.log(this.props.user)
         return (
 
             <div className="container">
@@ -51,8 +50,6 @@ class Home extends Component {
                         <button onClick={this.logout}>Logout</button> */}
 
                         <img className="logo-image" src={logoText} />
-                        {console.log(this.props.topics)}
-                        {console.log(this.state)}
                         <div className="profile-pic">
                             <img src={this.props.user.photoURL} />
                         </div>
@@ -83,7 +80,7 @@ class Home extends Component {
 
                                 <ul class="collection">
 
-                                    {this.props.topics.map((topic, index) => <TopicCard handleClick={this.props.handleClick} topic={topic} index={index} />)}
+                                    {this.props.topics.map((topic, index) => <TopicCard handleClick={this.props.handleClick} topic={topic} index={index} currentTopic={this.props.currentTopic} favourite={false} userId={this.props.dbUser.uid} />)}
 
 
                                 </ul>
