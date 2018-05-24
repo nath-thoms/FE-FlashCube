@@ -19,9 +19,7 @@ class App extends Component {
 
     topics: [],
 
-    chosenTopic: 0,
-
-    currentTopic: null
+    currentTopic: "0"
 
   }
 
@@ -77,7 +75,8 @@ class App extends Component {
               })
               relatedTopics[topicIndex].terms.push({
                 term: termObj._fields[0].properties.term,
-                definition: termObj._fields[0].properties.definition
+                definition: termObj._fields[0].properties.definition,
+                img: termObj._fields[0].properties.img
               })
             })
             this.setState({ topics: relatedTopics })
@@ -117,7 +116,7 @@ class App extends Component {
           <div className="App-intro">
             <Route exact path="/" component={Login} />
             <Route exact path="/home" component={(props) => <Home {...props} updateDbUser={this.updateDbUser} user={this.state.user} dbUser={this.state.dbUser} topics={this.state.topics} handleClick={this.handleClick} currentTopic={this.state.currentTopic} />} />
-            <Route exact path="/cube" component={(props) => <Cube {...props} user={this.state.user} dbUser={this.state.dbUser} topic={this.state.topics[this.state.chosenTopic]} />} />
+            <Route exact path="/cube" component={(props) => <Cube {...props} user={this.state.user} dbUser={this.state.dbUser} topic={this.state.topics[this.state.currentTopic]} />} />
           </div>
         </div>
 
