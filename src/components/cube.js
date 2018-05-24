@@ -5,15 +5,88 @@ import {Entity, Scene} from 'aframe-react';
 import FlashCard from './flash-card';
 import ExitCard from './exit-card';
 import RefreshCard from './refresh-card';
+import QuestionCard from './question-card';
+import AnswerCard from './answer-card';
 
 class Cube extends React.Component {
 
     state = {
-        iteration: 0
+        iteration: 0,
+        currentCard: "",
+        quizQuestions: this.props.topic.terms,
+        questionsAsked: 0,
+        correctAnswers: 0,
+        currentQuestion: Math.floor(Math.random() * this.props.topic.terms.length),
+        rand : Math.random()
+    }
+
+    componentDidMount () {
+        document.addEventListener('keydown', this.pressSpace);
+    }
+
+    componentWillUnmount () {
+        document.removeEventListener('keydown', this.pressSpace)
+    }
+
+    updateCurrentCard = e => {
+        this.setState({currentCard: e})
     }
 
     exitCube = () => {
-        this.props.history.push('/home')
+        this.props.history.push('/home');
+        document.location.reload();
+    }
+
+    refreshCards = () => {
+        console.log('refreshing cards')
+        this.setState({iteration: this.state.iteration + 1})
+        document.querySelectorAll('.flashCard').forEach(e => {
+            if (!e.getAttribute('text')) e.setAttribute('rotation', {x: 0, y: 0, z: 0})
+            if (!e.getAttribute('text')) e.emit('spin')
+        })
+        console.log('refreshing cards')        
+    }
+
+    nextQuestion = (correct) => {
+        let quizQuestions = this.state.quizQuestions
+        quizQuestions.splice(this.state.currentQuestion, 1)
+        const currentQuestion = Math.floor(Math.random() * quizQuestions.length)
+        const correctAnswers = correct ? this.state.correctAnswers + 1 : this.state.correctAnswers
+        this.setState({quizQuestions, currentQuestion, correctAnswers, questionsAsked: this.state.questionsAsked + 1, rand: Math.random()})
+    }
+
+    pressSpace = e => {
+        console.log(e.keyCode)
+        if (e.keyCode === 32) {
+            console.log(this.state.currentCard.className)
+            console.log(this.state.currentCard.id)
+            console.log(this.state.currentCard.getAttribute('rotation'))
+            if (this.state.currentCard.className === 'refreshCard') {
+                this.state.currentCard.emit('spin')
+                this.refreshCards();
+            } else if (this.state.currentCard.className === 'flashCard') {
+                this.state.currentCard.getAttribute('rotation').y % 360 === 0 ? this.state.currentCard.emit('flipOver') : this.state.currentCard.emit('flipBack')
+            } else if (this.state.currentCard.className === 'exitCard') {
+                this.state.currentCard.getAttribute('rotation').y % 360 === 0 ? this.state.currentCard.emit('flipOver') : this.state.currentCard.emit('flipBack')                
+            } else if (this.state.currentCard.className === 'exitConfirm') {
+                this.exitCube();
+            } else if (this.state.currentCard.className === 'answerCard') {
+                const correct = this.state.currentCard.id === 'correctAnswer'
+                document.querySelectorAll('.answerCard').forEach(e => {
+                    if (!e.getAttribute('text')) {
+                        e.getAttribute('rotation').y % 360 === 0 ? e.emit('flipOver') : e.emit('flipBack')
+                    }
+                })
+                setTimeout(() => {
+                    document.querySelectorAll('.answerCard').forEach(e => {
+                        if (!e.getAttribute('text')) {
+                            e.getAttribute('rotation').y % 360 === 0 ? e.emit('flipOver') : e.emit('flipBack')
+                        }
+                    })
+                    setTimeout(() => {this.nextQuestion(correct)}, 1000)
+                }, 3000)
+            }
+        }
     }
 
     render () {
@@ -23,6 +96,43 @@ class Cube extends React.Component {
             {x: -1.5, y: -1.5, z: 2.02}, {x: 0, y: -1.5, z: 2.02}, {x: 1.5, y: -1.5, z: 2.02},
         ]
         const {topic} = this.props
+
+        // const question = {term: 'hello'}
+        const question = this.state.quizQuestions[this.state.currentQuestion]
+        let questionIndex = 0
+
+        this.props.topic.terms.forEach((ele, index) => {
+            if (ele.definition === question.definition) questionIndex = index
+        })
+
+        let wrongAnswerOne = (questionIndex + 1) % this.props.topic.terms.length
+        let wrongAnswerTwo = (questionIndex - 1 + this.props.topic.terms.length) % this.props.topic.terms.length
+
+        
+        // const answers = [question, this.props.topic.terms[wrongAnswerOne], this.props.topic.terms[wrongAnswerTwo]]
+        const answers = [question]
+        let correctArr
+        
+        if (this.state.rand < (1/3)) {
+            answers.push(this.props.topic.terms[wrongAnswerOne])
+            answers.push(this.props.topic.terms[wrongAnswerTwo])
+            correctArr = [true, false, false]
+        } else if (this.state.rand < (2/3)) {
+            answers.push(this.props.topic.terms[wrongAnswerOne])
+            answers.unshift(this.props.topic.terms[wrongAnswerTwo])
+            correctArr = [false, true, false]
+        } else {
+            answers.unshift(this.props.topic.terms[wrongAnswerOne])
+            answers.unshift(this.props.topic.terms[wrongAnswerTwo])
+            correctArr = [false, false, true]
+        }
+
+        // document.addEventListener('keydown', function(event) {
+        //     document.querySelectorAll('.listenonkey').forEach(function(obj){
+        //       obj.setAttribute('position', '0 0 0');
+        //     });
+        //   });
+
         return (
             <Scene>
                 <a-assets>
@@ -45,22 +155,16 @@ class Cube extends React.Component {
                     </Entity>
                 </a-entity>
                 <Entity
-                    geometry={{primitive: 'box', width: 2, height: 2, depth: 2, transparent: false}}
-                    material={{src: "#logo", side: 'back'}}
-                    position={{x: 0, y: 0, z: 0}}>
-                    <a-animation attribute="material.opacity"
-                        dur="3000"
-                        begin="2000"
-                        fill="forwards"
-                        from="1"
-                        to="0"
-                        repeat="0"></a-animation>
+                    geometry={{primitive: 'plane', width: 4, height: 4, transparent: false}}
+                    material={{src: "#logo"}}
+                    position={{x: 0, y: 7, z: -2}}>
                     <a-animation attribute="position"
-                        dur="100"
-                        begin="5000"
+                        dur="3000"
+                        begin="0"
                         fill="forwards"
-                        from="0 0 0"
-                        to="0 20 0"
+                        from="0 -1 -2"
+                        to="0 7 -2"
+                        easing="ease-in-cubic"
                         repeat="0"></a-animation>
                 </Entity>
                 <Entity
@@ -72,7 +176,7 @@ class Cube extends React.Component {
                 <Entity geometry={{primitive: 'plane', width: 6, height: 6}}
                     material={{color: 'yellow', opacity: 0}}
                     position={{x: 0, y: 0, z: -5.08}}
-                    text={{value: 'bottom'}}
+                    text={{value: 'Revision'}}
                 >
                     <Entity
                         geometry={{primitive: 'plane', width: 5.8, height: 0.5}}
@@ -85,20 +189,44 @@ class Cube extends React.Component {
                         geometry={{primitive: 'plane', width: 5.8, height: 0.5}}
                         material={{src: '#cardboard'}}
                         position={{x: 0, y: -2.65, z: 2.02}}
-                        text={{value: 'bottom', align: 'center', color: 'black', baseline: 'bottom', wrapCount: '40', font: 'https://cdn.aframe.io/fonts/mozillavr.fnt'}}                        
+                        text={{value: 'Revision', align: 'center', color: 'black', baseline: 'bottom', wrapCount: '40', font: 'https://cdn.aframe.io/fonts/mozillavr.fnt'}}                        
                         >
                     </Entity>
                     {posArr.map((pos, index) => {
-                        return <FlashCard term={topic.terms[index].term} definition={topic.terms[index].definition} img="" pos={pos}/>
+                        if (topic.terms[index + this.state.iteration * 8]) return <FlashCard updateCurrentCard={this.updateCurrentCard} term={topic.terms[index + this.state.iteration * 8].term} definition={topic.terms[index + this.state.iteration * 8].definition} img="" pos={pos}/>
                     })}
-                    <RefreshCard pos={{x: 0, y: 0, z: 2.02}}/>
+                    <RefreshCard updateCurrentCard={this.updateCurrentCard} refreshCards={this.refreshCards} pos={{x: 0, y: 0, z: 2.02}}/>
                 </Entity>
                 <Entity geometry={{primitive: 'plane', width: 6, height: 6}}
                     material={{color: 'yellow', opacity: 0}}
                     position={{x: -5.08, y: 0, z: 0}}
                     rotation="0 90 0"
                 >
-                    <ExitCard exitCube={this.exitCube} pos={{x: 0, y: 0, z: 2.02}}/>
+                    <ExitCard exitCube={this.exitCube} pos={{x: 0, y: 0, z: 2.02}} updateCurrentCard={this.updateCurrentCard}/>
+                </Entity>
+                <Entity geometry={{primitive: 'plane', width: 6, height: 6}}
+                    material={{color: 'yellow', opacity: 0}}
+                    position={{x: 0, y: 0, z: 5.08}}
+                    rotation="0 180 0"
+                >
+                    <Entity
+                        geometry={{primitive: 'plane', width: 5.8, height: 0.5}}
+                        material={{src: '#cardboard'}}
+                        position={{x: 0, y: 2.65, z: 2.02}}
+                        text={{value: this.props.topic.title, height: 0.2, align: 'center', color: 'black', baseline: 'bottom', wrapCount: '40', font: 'https://cdn.aframe.io/fonts/mozillavr.fnt'}}
+                        >
+                    </Entity>
+                    <Entity
+                        geometry={{primitive: 'plane', width: 5.8, height: 0.5}}
+                        material={{src: '#cardboard'}}
+                        position={{x: 0, y: -2.65, z: 2.02}}
+                        text={{value: `Quiz - ${this.state.correctAnswers} / ${this.state.questionsAsked} Correct Answers`, align: 'center', color: 'black', baseline: 'bottom', wrapCount: '40', font: 'https://cdn.aframe.io/fonts/mozillavr.fnt'}}                        
+                        >
+                    </Entity>
+                    {posArr.slice(5).map((pos, index) => {
+                        return <AnswerCard updateCurrentCard={this.updateCurrentCard} term={answers[index].term} definition={answers[index].definition} img={answers[index].img} pos={pos} correct={correctArr[index]}/>
+                    })}
+                    <QuestionCard updateCurrentCard={this.updateCurrentCard} definition={question.definition} term={question.term} refreshCards={this.refreshCards} pos={{x: 0, y: 0, z: 2.02}}/>
                 </Entity>
             </Scene>
         );

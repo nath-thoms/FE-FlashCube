@@ -2,12 +2,13 @@ import React from 'react';
 import PT from 'prop-types';
 import {Entity} from 'aframe-react';
 
-function FlashCard ({pos, img, term, definition}) {
+function FlashCard ({pos, img, term, definition, updateCurrentCard}) {
 
 
     function mouseEnter (e) {
         console.log('mouse enter', e.detail.intersection)
-        e.target.emit('zoomIn')
+        e.target.emit('zoomIn');
+        updateCurrentCard(e.target);
     }
     
     function mouseLeave (e) {
@@ -15,20 +16,13 @@ function FlashCard ({pos, img, term, definition}) {
         e.target.emit('zoomOut')
     }
 
-    let cardFlipped = false;
-
-    function mouseClick (e) {
-        console.log('mouse click', e.detail.intersection)
-        cardFlipped ? e.target.emit('flipBack') : e.target.emit('flipOver')
-        cardFlipped = !cardFlipped
-    }
-
     return (
         <Entity
+            className="flashCard"
             geometry={{primitive: 'plane', width: 1.4, height: 1.4}}
             material={{opacity: 0}}
             position={pos}
-            events={{mousedown: mouseClick, click: mouseEnter, mouseleave: mouseLeave}}>
+            events={{click: mouseEnter, mouseleave: mouseLeave}}>
             <a-animation attribute="position"
                 begin='zoomIn'
                 dur="200"
@@ -47,18 +41,24 @@ function FlashCard ({pos, img, term, definition}) {
                 dur="500"
                 from="0 180 0"
                 to="0 360 0"></a-animation>
+            <a-animation attribute="rotation"
+                begin='spin'
+                dur="1000"
+                from="0 0 0"
+                to="0 0 360"></a-animation>
             <Entity
                 geometry={{primitive: 'plane', width: 1.4, height: 1.4}}
-                material={{src: img ? img : '#paper'}}
+                material={{src: img ? img : '#cardboard'}}
                 position={{x: 0, y: 0, z: -0.01}}
-                text={{value: term, align: 'center', color: 'black', wrapCount: '15', font: 'https://cdn.aframe.io/fonts/mozillavr.fnt'}}>
+                text={{value: term, align: 'center', color: 'black', wrapCount: '15', font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt'}}>
             </Entity>
             <Entity
+                className="flashCard"
                 geometry={{primitive: 'plane', width: 1.4, height: 1.4}}
-                material={{src: '#cardboard'}}
+                material={{src: '#paper'}}
                 position={{x: 0, y: 0, z: -0.01}}
                 rotation="0 180 0"
-                text={{value: definition, align: 'center', color: 'black', wrapCount: '15', font: 'https://cdn.aframe.io/fonts/mozillavr.fnt'}}>
+                text={{value: definition, align: 'center', color: 'black', wrapCount: '15', font: 'https://cdn.aframe.io/fonts/Exo2Bold.fnt'}}>
             </Entity>
         </Entity>
     );

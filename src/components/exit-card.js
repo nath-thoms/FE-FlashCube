@@ -2,12 +2,13 @@ import React from 'react';
 import PT from 'prop-types';
 import {Entity} from 'aframe-react';
 
-function FlashCard ({pos, img, exitCube}) {
+function FlashCard ({pos, img, exitCube, updateCurrentCard}) {
 
 
     function mouseEnter (e) {
         console.log('mouse enter', e.detail.intersection)
-        e.target.emit('zoomIn')
+        e.target.emit('zoomIn');
+        updateCurrentCard(e.target);
     }
     
     function mouseLeave (e) {
@@ -25,10 +26,11 @@ function FlashCard ({pos, img, exitCube}) {
 
     return (
         <Entity
+            className="exitCard"
             geometry={{primitive: 'plane', width: 1.4, height: 1.4}}
             material={{opacity: 0}}
             position={pos}
-            events={{mousedown: mouseClick, click: mouseEnter, mouseleave: mouseLeave}}>
+            events={{click: mouseEnter, mouseleave: mouseLeave}}>
             <a-animation attribute="position"
                 begin='zoomIn'
                 dur="200"
@@ -52,23 +54,26 @@ function FlashCard ({pos, img, exitCube}) {
                 material={{src: '#cardboard'}}
                 position={{x: 0, y: 0, z: -0.01}}>
             </Entity>
-            <a-text value="EXIT" align="center" font="https://cdn.aframe.io/fonts/Roboto-msdf.json"></a-text>
+            <a-text value="EXIT" align="center" font='https://cdn.aframe.io/fonts/Exo2Bold.fnt'></a-text>
             <Entity
+                className="exitConfirm"
                 geometry={{primitive: 'plane', width: 1.2, height: 0.5}}
                 material={{src: '#cardboard', color: 'red'}}
                 position={{x: 0, y: -0.35, z: -0.1}}
                 rotation="0 180 0"
                 events={{mousedown: exitCube}}>
-                <a-text value="EXIT" align="center" font="https://cdn.aframe.io/fonts/Aileron-Semibold.fnt"></a-text>
+                <a-text value="EXIT" align="center" font='https://cdn.aframe.io/fonts/Exo2Bold.fnt'></a-text>
             </Entity>
             <Entity
+                className="exitCard"
                 geometry={{primitive: 'plane', width: 1.2, height: 0.5}}
                 material={{src: '#cardboard', color: 'green'}}
                 position={{x: 0, y: 0.35, z: -0.1}}
                 rotation="0 180 0">
-                <a-text value="CANCEL" align="center" font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
+                <a-text value="CANCEL" align="center" font='https://cdn.aframe.io/fonts/Exo2Bold.fnt'></a-text>
             </Entity>
             <Entity
+                className="exitCard"                
                 geometry={{primitive: 'plane', width: 1.4, height: 1.4}}
                 material={{src: '#cardboard'}}
                 position={{x: 0, y: 0, z: -0.01}}
