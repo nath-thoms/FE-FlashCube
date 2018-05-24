@@ -66,3 +66,8 @@ img {
 button:focus {
     background-color: white !important;
 }
+
+.topic-button:focus {
+
+    background-color: turquoise !important;
+}
