@@ -1,5 +1,5 @@
 import React from 'react';
-import PT from 'prop-types';
+// import PT from 'prop-types';
 
 function MainButton (props) {
     return (
@@ -9,8 +9,8 @@ function MainButton (props) {
     );
 }
 
-MainButton.propTypes = {
+// MainButton.propTypes = {
     
-}
+// }
 
 export default MainButton;

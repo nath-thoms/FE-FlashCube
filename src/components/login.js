@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import '../login.css'
-import { Link } from 'react-router-dom'
-import { fire, facebookProvider } from '../config/Fire'
-import Signup from './signup'
+import React, { Component } from 'react';
+import '../login.css';
+// import { Link } from 'react-router-dom' 
+import { fire, facebookProvider } from '../config/Fire';
+import Signup from './signup';
 import logo from '../images/image.png';
 
 
@@ -34,7 +34,7 @@ class Login extends Component {
         e.preventDefault();
         fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then((u) => {
-                <Signup />
+                return <Signup />
             })
             .catch((error) => {
                 console.log(error)
@@ -71,33 +71,33 @@ class Login extends Component {
             <div>
 
 
-                <img className="logo-image" src={logo} />
+                <img alt="" className="logo-image" src={logo} />
 
 
                 <div className="login-field">
-                    <form class="login-field">
-                        <div class="login-field">
-                            <div class="input-field">
-                                <i class="material-icons prefix">email</i>
-                                <input value={this.state.email} onChange={this.handleChange} id="icon_prefix" type="email" name="email" class="validate" />
-                                <label for="icon_prefix">Email</label>
+                    <form className="login-field">
+                        <div className="login-field">
+                            <div className="input-field">
+                                <i className="material-icons prefix">email</i>
+                                <input value={this.state.email} onChange={this.handleChange} type="email" name="email" className="validate" />
+                                <label htmlFor="icon_prefix">Email</label>
                             </div>
                         </div>
-                        <div class="login-field">
-                            <div class="input-field">
-                                <i class="material-icons prefix">vpn_key</i>
-                                <input value={this.state.password} onChange={this.handleChange} id="icon_prefix" type="password" name="password" class="validate" />
-                                <label for="icon_prefix">Password</label>
+                        <div className="login-field">
+                            <div className="input-field">
+                                <i className="material-icons prefix">vpn_key</i>
+                                <input value={this.state.password} onChange={this.handleChange} type="password" name="password" className="validate" />
+                                <label htmlFor="icon_prefix">Password</label>
                             </div>
                         </div>
                         <div className="login-but">
-                            <button onClick={this.login} class="btn waves-effect waves-light" type="submit" name="action">Login
-                                <i class="material-icons right">send</i>
+                            <button onClick={this.login} className="btn waves-effect waves-light" type="submit" name="action">Login
+                                <i className="material-icons right">send</i>
                             </button>
                         </div>
 
-                        <button onClick={this.signup} class="btn waves-effect waves-light" type="submit" name="action">Signup
-                                <i class="material-icons right">send</i>
+                        <button onClick={this.signup} className="btn waves-effect waves-light" type="submit" name="action">Signup
+                                <i className="material-icons right">send</i>
                         </button>
                     </form>
                 </div>

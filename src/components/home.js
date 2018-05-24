@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import { fire } from '../config/Fire'
 import '../home.css'
 import Loading from './loading'
-import Title from './title';
-import MainButton from './main-button'
-import { Link } from 'react-router-dom';
-import * as API from './API';
+// import Title from './title'; This is commented out below, meaning it is not used so not necessary to import in
+// import MainButton from './main-button'; This is never used.
+// import { Link } from 'react-router-dom';
+// import * as API from './API';
 import logoText from '../images/flash-text.png';
 import TopicCard from './topic-card';
 
 
 class Home extends Component {
 
-    componentDidMount() {
+    // componentDidMount() { RG - why is this here if it is empty?
 
-    }
+    // }
 
     logout = () => {
         fire.auth().signOut();
@@ -49,30 +49,30 @@ class Home extends Component {
                         </div>
                         <div className="profile-pic">
                         
-                            <img src={this.props.user.photoURL} />
+                            <img alt="" src={this.props.user.photoURL} />
                         </div>
                         <button onClick={this.logout}>Logout</button> */}
 
-                        <img className="logo-image" src={logoText} />
+                        <img alt="" className="logo-image" src={logoText} />
                         <div className="profile-pic">
-                            <img src={this.props.user.photoURL} />
+                            <img alt="" src={this.props.user.photoURL} />
                         </div>
                         <p>Welcome {this.props.user.displayName || "User"}</p>
 
                         <button onClick={this.logout}>Logout</button>
 
                         <div className="container button-bar">
-                            <div onClick={this.cubeStart} class="waves-effect waves-light btn-large">  Start  </div>
-                            <a class="waves-effect waves-light btn-large"><i class="large material-icons">settings</i></a>
-                            <div class="waves-effect waves-light btn-large">Trophies</div>
+                            <div onClick={this.cubeStart} className="waves-effect waves-light btn-large">  Start  </div>
+                            <a className="waves-effect waves-light btn-large"><i className="large material-icons">settings</i></a>
+                            <div className="waves-effect waves-light btn-large">Trophies</div>
 
                         </div>
 
                         <div className="filters">
 
 
-                            <a class="waves-effect waves-light btn">Filter</a>
-                            <a class="waves-effect waves-light btn">Sort</a>
+                            <a className="waves-effect waves-light btn">Filter</a>
+                            <a className="waves-effect waves-light btn">Sort</a>
 
 
 
@@ -82,7 +82,7 @@ class Home extends Component {
 
                             <div className="topic-list">
 
-                                <ul class="collection">
+                                <ul className="collection">
 
                                     {this.props.topics.map((topic, index) => <TopicCard handleClick={this.props.handleClick} topic={topic} index={index} currentTopic={this.props.currentTopic} favourite={false} userId={this.props.dbUser.uid} />)}
 

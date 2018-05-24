@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from './images/image.png';
 import './App.css';
-import { BrowserRouter, Route, Link, withRouter } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Login from './components/login';
 import { fire } from './config/Fire'
 import Home from './components/home'
@@ -56,7 +55,7 @@ class App extends Component {
   downloadTopicsOnLoad = (res) => {
     const relatedTopics = res.map((ele) => {
       console.log(ele)
-      const topicObject = { relationship: [ele._fields[1]], title: ele._fields[3].properties.title, title: ele._fields[3].properties.title, terms: [], imageUrl: ele._fields[3].properties.topicImageUrl }
+      const topicObject = { relationship: [ele._fields[1]], title: ele._fields[3].properties.title, terms: [], imageUrl: ele._fields[3].properties.topicImageUrl }
       if (ele._fields[2]) topicObject.relationship.push('favourite')
       return topicObject
     })

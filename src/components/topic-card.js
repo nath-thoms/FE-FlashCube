@@ -48,16 +48,16 @@ class TopicCard extends Component {
 
         return (
             <div className="topic-card">
-                <button value={this.props.index} onClick={this.props.handleClick} class="collection-item avatar topic-button">
+                <button value={this.props.index} onClick={this.props.handleClick} className="collection-item avatar topic-button">
 
-                    <img src={this.props.topic.imageUrl} alt="" class="circle" />
+                    <img src={this.props.topic.imageUrl} alt="" className="circle" />
 
                     <p id={`${this.props.index}`}>{this.props.topic.title}<br />
                         Number of terms: {this.props.topic.terms.length}
                     </p>
                 </button>
                 <div id="favvy" className="fav-button">
-                    {this.state.favourite ? <button onClick={this.removeFave} href="#!" className="secondary-content fave-star"><i class="material-icons">star</i></button> : <button onClick={this.handleFave} href="#!" class="secondary-content"><i class="material-icons">star_border</i></button>}
+                    {this.state.favourite ? <button onClick={this.removeFave} href="#!" className="secondary-content fave-star"><i className="material-icons">star</i></button> : <button onClick={this.handleFave} href="#!" className="secondary-content"><i className="material-icons">star_border</i></button>}
                 </div>
             </div>
 

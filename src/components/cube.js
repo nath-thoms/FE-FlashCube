@@ -136,16 +136,16 @@ class Cube extends React.Component {
         return (
             <Scene>
                 <a-assets>
-                    <img id="logo" src="flashcubelogo.png"/>
-                    <img id="metal" src="metal.jpg"/>
-                    <img id="rawbeef" src="rawbeef.jpg"/>
-                    <img id="cardboard" src="cardboard.jpg"/>
-                    <img id="cubecursor" src="cubecursor.png"/>
-                    <img id="sean" src="sean.jpeg"/>
-                    <img id="romy" src="romy.jpeg"/>
-                    <img id="nath" src="nath.jpeg"/>
-                    <img id="dan" src="dan.jpg"/>
-                    <img id="paper" src="paper.jpg"/>
+                    <img alt="" id="logo" src="flashcubelogo.png"/>
+                    <img alt="" id="metal" src="metal.jpg"/>
+                    <img alt="" id="rawbeef" src="rawbeef.jpg"/>
+                    <img alt="" id="cardboard" src="cardboard.jpg"/>
+                    <img alt="" id="cubecursor" src="cubecursor.png"/>
+                    <img alt="" id="sean" src="sean.jpeg"/>
+                    <img alt="" id="romy" src="romy.jpeg"/>
+                    <img alt="" id="nath" src="nath.jpeg"/>
+                    <img alt="" id="dan" src="dan.jpg"/>
+                    <img alt="" id="paper" src="paper.jpg"/>
                 </a-assets>
                 <a-entity camera look-controls>
                     <Entity cursor="fuse: true; fuseTimeout: 1"
@@ -194,6 +194,7 @@ class Cube extends React.Component {
                     </Entity>
                     {posArr.map((pos, index) => {
                         if (topic.terms[index + this.state.iteration * 8]) return <FlashCard updateCurrentCard={this.updateCurrentCard} term={topic.terms[index + this.state.iteration * 8].term} definition={topic.terms[index + this.state.iteration * 8].definition} img={topic.terms[index + this.state.iteration * 8].img} pos={pos}/>
+                        // else return something, getting a warning expected return value at end of arrow function.
                     })}
                     <RefreshCard updateCurrentCard={this.updateCurrentCard} refreshCards={this.refreshCards} pos={{x: 0, y: 0, z: 2.02}}/>
                 </Entity>
