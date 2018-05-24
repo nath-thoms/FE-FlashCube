@@ -25,22 +25,6 @@ class TopicCard extends Component {
 
     }
 
-    // addFavourite = () => {
-    //     return Axios
-    //         .put(`https://flashcube-back-end.herokuapp.com/api/topics/${this.props.userId}/${this.searchTerm}`)
-    //         .then(res => {
-    //             console.log(res)
-    //             return Axios
-    //                 .put(`https://flashcube-back-end.herokuapp.com/api/topics/fave/${this.props.userId}/${this.searchTerm}`)
-    //                 .then(res => {
-    //                     console.log(res)
-    //                 })
-    //         })
-    //         .catch(console.log)
-    // }
-
-
-
     handleFave = () => {
         API.createFavourite(this.userId, this.topicTitle)
         this.setState({
@@ -49,7 +33,6 @@ class TopicCard extends Component {
     }
 
     removeFave = () => {
-        console.log('remove')
         API.removeFavourite(this.userId, this.topicTitle)
         this.setState({
             favourite: false
@@ -72,16 +55,6 @@ class TopicCard extends Component {
                     <p id={`${this.props.index}`}>{this.props.topic.title}<br />
                         Number of terms: {this.props.topic.terms.length}
                     </p>
-
-
-
-
-                    {/* {this.state.favourite ? <button onClick={this.favouriteClick} href="#!" class="secondary-content"><i class="material-icons">star</i></button> : <button onClick={this.favouriteClick} href="#!" class="secondary-content"><i class="material-icons">star_border</i></button>} */}
-
-                    {/* {this.props.favourite && <a href="#!" class="secondary-content"><i class="material-icons">star</i></a>} */}
-                    {/* <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> */}
-
-
                 </button>
                 <div id="favvy" className="fav-button">
                     {this.state.favourite ? <button onClick={this.removeFave} href="#!" className="secondary-content fave-star"><i class="material-icons">star</i></button> : <button onClick={this.handleFave} href="#!" class="secondary-content"><i class="material-icons">star_border</i></button>}
