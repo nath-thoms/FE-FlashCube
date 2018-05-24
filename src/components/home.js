@@ -21,6 +21,10 @@ class Home extends Component {
         this.props.history.push('/')
     }
 
+    cubeStart = () => {
+        this.props.history.push('/cube')
+    }
+
 
 
     render() {
@@ -58,7 +62,7 @@ class Home extends Component {
                         <button onClick={this.logout}>Logout</button>
 
                         <div className="container button-bar">
-                            <div class="waves-effect waves-light btn-large">  Start  </div>
+                            <div onClick={this.cubeStart} class="waves-effect waves-light btn-large">  Start  </div>
                             <a class="waves-effect waves-light btn-large"><i class="large material-icons">settings</i></a>
                             <div class="waves-effect waves-light btn-large">Trophies</div>
 
