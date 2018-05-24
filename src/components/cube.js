@@ -193,7 +193,7 @@ class Cube extends React.Component {
                         >
                     </Entity>
                     {posArr.map((pos, index) => {
-                        if (topic.terms[index + this.state.iteration * 8]) return <FlashCard updateCurrentCard={this.updateCurrentCard} term={topic.terms[index + this.state.iteration * 8].term} definition={topic.terms[index + this.state.iteration * 8].definition} img="" pos={pos}/>
+                        if (topic.terms[index + this.state.iteration * 8]) return <FlashCard updateCurrentCard={this.updateCurrentCard} term={topic.terms[index + this.state.iteration * 8].term} definition={topic.terms[index + this.state.iteration * 8].definition} img={topic.terms[index + this.state.iteration * 8].img} pos={pos}/>
                     })}
                     <RefreshCard updateCurrentCard={this.updateCurrentCard} refreshCards={this.refreshCards} pos={{x: 0, y: 0, z: 2.02}}/>
                 </Entity>
